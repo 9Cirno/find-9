@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "7.1.0",
     "@svgr/webpack": "2.4.1",
+    "antd-mobile": "^2.2.0-beta.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
@@ -114,6 +115,9 @@
   "babel": {
     "presets": [
       "react-app"
-    ]
+    ] 
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.11.0"
   }
 }
