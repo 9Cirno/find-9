@@ -6,11 +6,11 @@ import reducers from './reducers'
 import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Link, Redirect, Switch} from 'react-router-dom'
-import Auth from './Auth.js'
-import Dashboard from './Dashboard'
 import './config'
-
-
+import './index.css'
+import Login from './container/login/login'
+import Register from './container/register/register'
+import AuthRoute from './component/authroute/authroute'
 
 const reduxDevtools= window.devToolsExtension?window.devToolsExtension():f=>f
 const store = createStore(reducers,compose(
@@ -18,17 +18,19 @@ const store = createStore(reducers,compose(
 	reduxDevtools
 	))
 
-
+function Boss(){
+	return <h2>bosspage</h2>
+}
 
 ReactDom.render(
 	<Provider store={store}>
 		<BrowserRouter>
-			<Switch>
-				<Route path='/login' component={Auth}></Route>
-				<Route path='/dashboard' component={Dashboard}></Route>
-				<Redirect to='/dashboard'></Redirect>
-			</Switch>
- 
+			<div>
+				<AuthRoute></AuthRoute>
+				<Route path='/boss' component={Boss}></Route>
+				<Route path='/login' component={Login}></Route>
+				<Route path='/register' component={Register}></Route>
+			</div>
 		</BrowserRouter>
 	</Provider>
 	,document.getElementById('root')
