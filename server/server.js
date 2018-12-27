@@ -24,7 +24,7 @@ const User = mongoose.model('user',new mongoose.Schema({
 
 
 // delete
-// User.remove({age:18},(err,doc)=>{
+// User.remove({age:23},(err,doc)=>{
 // 	console.log(doc)
 // })
 
