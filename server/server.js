@@ -4,11 +4,29 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const utils = require('utility')
 const app = express()
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+const model = require('./model')
+const Chat = model.getModel('chat')
+const User = model.getModel('user')
+io.on('connection',function(socket){
+	//console.log('user login')
+	socket.on('sendmsg',function(data){
+		const {_from, to, msg} = data
+		const chatid = [_from,to].sort().join('_')
+		Chat.create({chatid:chatid,from:_from,to:to,content:msg},function(err,doc){
+			io.emit('recvmsg',Object.assign({},doc._doc))
+		})
+		//console.log(data)
+		//io.emit('recvmsg',data)
+	})
+})
+
 
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use('/user',userRouter)
-app.listen(9093, ()=>{
+server.listen(9093, ()=>{
 	console.log('nood app start at port 9093')
 })
 

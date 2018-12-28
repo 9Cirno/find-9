@@ -5,26 +5,28 @@ import AvatarSelector from '../../component/avatarSelector/avatarSelector'
 import {connect} from 'react-redux'
 import {update} from '../../redux/user.redux'
 import {Redirect} from 'react-router-dom'
+
 @connect(
 	state=>state.user,
 	{update}
 )
 
-class BossInfo extends React.Component{
+class SeekerInfo extends React.Component{
+
 	constructor(props){
 		super(props);
 		this.state={
 			title:'',
-			desc:'',
-			company:'',
-			salary:''
+			desc:''
 		}
 	}
+
 	onChange(key,val){
 		this.setState({
 			[key]:val
 		})
 	}
+
 	render(){
 		const path = this.props.location.pathname
 		const redirect = this.props.redirectTo
@@ -41,26 +43,17 @@ class BossInfo extends React.Component{
 				></AvatarSelector>
 				<InputItem 
 					onChange={v=>this.onChange('title',v)}
+					placeholder='example: Software Engineer'
 				>
-				Position
-				</InputItem>
-				<InputItem 
-					onChange={v=>this.onChange('company',v)}
-				>
-				Company
-				</InputItem>
-				<InputItem 
-					onChange={v=>this.onChange('salary',v)}
-				>
-				Salary
+				Objective
 				</InputItem>
 				<TextareaItem 
 					onChange={v=>this.onChange('desc',v)}
 					rows={3}
 					autoHeight
-					title='Details'
+					title='Experience'
 					count='500'
-					placeholder='example: expert in Python'
+					placeholder='example: 3 years in Python'
 				>
 				</TextareaItem>
 				<Button 
@@ -68,9 +61,9 @@ class BossInfo extends React.Component{
 					this.props.update(this.state)
 				}}
 				type='primary'>Update</Button>
-  			</div>
+			</div>
 		)
 	}
 }
 
-export default BossInfo
+export default SeekerInfo 

@@ -4,32 +4,24 @@ import { List, Radio, InputItem,WingBlank, WhiteSpace, Button } from 'antd-mobil
 import 'antd-mobile/dist/antd-mobile.css';
 import {connect} from 'react-redux'
 import {register} from '../../redux/user.redux'
-import {Route, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
+import ifindForm from '../../component/ifindForm/ifindForm'
 
 @connect(
 	state=>state.user,
 	{register}
 )
-
-
+@ifindForm
 class Register extends React.Component{
 	constructor(props){
-		super(props);
-		this.state={
-			user:'',
-			pwd:'',
-			repeatpwd:'',
-			type:'seeker'
-		}
+		super(props)
 		this.handleRegister=this.handleRegister.bind(this)
 	}
 	handleRegister(){
-		this.props.register(this.state)
+		this.props.register(this.props.state)
 	}
-	handleChange(key,val){
-		this.setState({
-			[key]:val
-		})
+	componentDidMount(){
+		this.props.handleChange('type','seeker')
 	}
 	render(){
 		const RadioItem = Radio.RadioItem
@@ -43,28 +35,28 @@ class Register extends React.Component{
 					{this.props.msg?<p ckassName='error-msg'><font color='red'>{this.props.msg}</font></p>:null}
 					<WhiteSpace />
 					<InputItem
-						onChange={v=>this.handleChange('user',v)}
+						onChange={v=>this.props.handleChange('user',v)}
 					>Username</InputItem>
 					<WhiteSpace />
 					<InputItem
-						onChange={v=>this.handleChange('pwd',v)}
+						onChange={v=>this.props.handleChange('pwd',v)}
 						type='password'
 					>Password</InputItem>
 					<WhiteSpace />
 					<InputItem
-						onChange={v=>this.handleChange('repeatpwd',v)}
+						onChange={v=>this.props.handleChange('repeatpwd',v)}
 						type='password'
 					>RepeatPWD</InputItem>
 					<WhiteSpace />
 					<RadioItem 
-						checked={this.state.type=='seeker'}
-						onChange={()=>this.handleChange('type','seeker')}>
+						checked={this.props.state.type==='seeker'}
+						onChange={()=>this.props.handleChange('type','seeker')}>
 						I'm looking for job
 					</RadioItem>
 					<WhiteSpace />
 					<RadioItem 
-					checked={this.state.type=='boss'}
-					onChange={()=>this.handleChange('type','boss')}>
+					checked={this.props.state.type==='boss'}
+					onChange={()=>this.props.handleChange('type','boss')}>
 						I'm hiring for worker
 					</RadioItem>
 				</List>
