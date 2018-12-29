@@ -7,11 +7,8 @@ import {Switch, Route} from 'react-router-dom'
 import Boss from '../boss/boss'
 import Seeker from '../../component/seeker/seeker'
 import User from '../../component/user/user'
+import Msg from '../msg/msg'
 import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux'
-
-function Msg(){
-	return <h2>Msg INDEX</h2>
-}
 
 
 @connect(

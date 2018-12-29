@@ -6,7 +6,7 @@ const Chat = model.getModel('chat')
 const utils = require('utility')
 const _filter = {'pwd':0,'__v':0}
 
-
+//Chat.remove({},(e,d)=>{});
 
 
 Router.get('/info',(req,res)=>{
@@ -66,6 +66,23 @@ Router.get('/list',(req,res)=>{
 		return res.json({code:0,data:doc})
 	})
 })
+
+Router.post('/readmsg',(req, res)=>{
+	const userid = req.cookies.userid
+	const {_from} = req.body
+	console.log(userid, _from)
+	Chat.update(
+		{from:_from,to:userid},
+		{'$set':{read:true}},
+		{'multi':true},
+		(err,doc)=>{
+		if (!err){
+			return res.json({code:0,num:doc.nModified})
+		}
+	})
+})
+
+
 
 Router.post('/register',(req,res)=>{
 	const {user,pwd,type} = req.body
