@@ -24,9 +24,11 @@ class Chat extends React.Component{
 	}
 	componentDidUpdate() {
 
-		if(this.messagesEnd){
+		if(document.getElementById('chatarea')){
 			//this.scrollToBottom()
-			window.scrollTo(0,document.body.scrollHeight)	
+			//window.scrollTo(0,document.body.scrollHeight)	
+			const chatarea = document.getElementById('chatarea')
+			window.scrollTo(0,chatarea.scrollHeight)
 		}
 	}
 	componentDidMount(){
@@ -41,7 +43,9 @@ class Chat extends React.Component{
 		}},1500)
 		setTimeout(()=>{if(this.messagesEnd){
 			//this.scrollToBottom()
-			window.scrollTo(0,document.body.scrollHeight)			
+			//window.scrollTo(0,document.body.scrollHeight)
+			const chatarea = document.getElementById('chatarea')
+			window.scrollTo(0,chatarea.scrollHeight)			
 		}},2000)
 	}
 	componentWillUnmount(){
@@ -54,15 +58,19 @@ class Chat extends React.Component{
 			window.dispatchEvent(new Event('resize'))
 		},0)
 			//this.scrollToBottom()
-			window.scrollTo(0,document.body.scrollHeight)	
+			const chatarea = document.getElementById('chatarea')
+			window.scrollTo(0,chatarea.scrollHeight)	
 	}
 	onInputClick(){
 		//this.scrollToBottom()
 		//window.scrollTo(0,document.body.scrollHeight)
-		setTimeout(()=>{if(this.messagesEnd){
-			//this.scrollToBottom()
-			window.scrollTo(0,document.body.scrollHeight)			
-		}},500)
+		const chatarea = document.getElementById('chatarea')
+		window.scrollTo(0,chatarea.scrollHeight)
+		//chatarea.scrollTo(0,chatarea.scrollHeight)
+		// setTimeout(()=>{if(this.messagesEnd){
+		// 	//this.scrollToBottom()
+		// 	window.scrollTo(0,document.body.scrollHeight)			
+		// }},500)
 	}
 	onInputChange(v){
 		this.setState({text:v})
@@ -78,7 +86,11 @@ class Chat extends React.Component{
 		this.setState({
 			text:''
 			})
-		}
+		}	
+		setTimeout(()=>{
+			const chatarea = document.getElementById('chatarea')
+			window.scrollTo(0,chatarea.scrollHeight)
+		},200)
 	}
 
 	render(){
@@ -106,6 +118,7 @@ class Chat extends React.Component{
 				>{users[userid].name}
 				</NavBar>
 				<div  className="chat-area"
+					id='chatarea'
 					>
 					
 					<QueueAnim 
