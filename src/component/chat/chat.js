@@ -74,6 +74,8 @@ class Chat extends React.Component{
 	}
 	onInputChange(v){
 		this.setState({text:v})
+		const chatarea = document.getElementById('chatarea')
+		window.scrollTo(0,chatarea.scrollHeight)
 	}
 	handleSubmit(){
 		//socket.emit('sendmsg',{text:this.state.text})
