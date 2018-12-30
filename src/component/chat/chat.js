@@ -25,7 +25,8 @@ class Chat extends React.Component{
 	componentDidUpdate() {
 
 		if(this.messagesEnd){
-  			this.scrollToBottom()
+			//this.scrollToBottom()
+			window.scrollTo(0,document.body.scrollHeight)	
 		}
 	}
 	componentDidMount(){
@@ -36,6 +37,11 @@ class Chat extends React.Component{
 		}
 		setTimeout(()=>{if(this.messagesEnd){
 			this.scrollToBottom()
+			//window.scrollTo(0,document.body.scrollHeight)			
+		}},1500)
+		setTimeout(()=>{if(this.messagesEnd){
+			//this.scrollToBottom()
+			window.scrollTo(0,document.body.scrollHeight)			
 		}},2000)
 	}
 	componentWillUnmount(){
@@ -47,11 +53,16 @@ class Chat extends React.Component{
 		setTimeout(()=>{
 			window.dispatchEvent(new Event('resize'))
 		},0)
-		this.scrollToBottom()
+			//this.scrollToBottom()
+			window.scrollTo(0,document.body.scrollHeight)	
 	}
 	onInputClick(){
 		//this.scrollToBottom()
-		window.scrollTo(0,document.body.scrollHeight)
+		//window.scrollTo(0,document.body.scrollHeight)
+		setTimeout(()=>{if(this.messagesEnd){
+			//this.scrollToBottom()
+			window.scrollTo(0,document.body.scrollHeight)			
+		}},500)
 	}
 	onInputChange(v){
 		this.setState({text:v})
