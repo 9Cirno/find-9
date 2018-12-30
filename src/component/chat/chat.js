@@ -50,7 +50,8 @@ class Chat extends React.Component{
 		this.scrollToBottom()
 	}
 	onInputClick(){
-		this.scrollToBottom()
+		//this.scrollToBottom()
+		window.scrollTo(0,document.body.scrollHeight)
 	}
 	onInputChange(v){
 		this.setState({text:v})

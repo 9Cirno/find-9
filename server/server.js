@@ -28,13 +28,13 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use('/user',userRouter)
 //common below for debug
-app.use((req,res,next)=>{
-	if (req.url.startsWith('/user/')||req.url.startsWith('/static/')){
-		return next()
-	}
-	return res.sendFile(path.resolve('build/index.html'))
-})
-app.use('/',express.static(path.resolve('build')))
+// app.use((req,res,next)=>{
+// 	if (req.url.startsWith('/user/')||req.url.startsWith('/static/')){
+// 		return next()
+// 	}
+// 	return res.sendFile(path.resolve('build/index.html'))
+// })
+// app.use('/',express.static(path.resolve('build')))
 //common above for debug
 server.listen(9093, ()=>{
 	console.log('nood app start at port 9093')
