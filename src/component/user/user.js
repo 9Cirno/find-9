@@ -14,6 +14,11 @@ class User extends React.Component{
 	constructor(props){
 		super(props)
 		this.logOut=this.logOut.bind(this)
+		this.update=this.update.bind(this)
+	}
+	update(){
+		console.log(`${this.props.type}info`)
+		this.props.history.push(`${this.props.type}info`)
 	}
 	logOut(){
 		const alert = Modal.alert
@@ -52,6 +57,7 @@ class User extends React.Component{
 				</List>
 				<WhiteSpace></WhiteSpace>
 				<List>
+					<Item onClick={this.update} >Update Info</Item>
 					<Item onClick={this.logOut} >Log Out</Item>
 				</List>
 			</div>

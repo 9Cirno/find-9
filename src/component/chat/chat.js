@@ -1,12 +1,10 @@
 import React from 'react'
-import io from 'socket.io-client'
 import {NavBar,List, InputItem,Icon,Grid} from 'antd-mobile'
 import 'antd-mobile/dist/antd-mobile.css';
 import {connect} from 'react-redux'
 import {getMsgList,sendMsg,recvMsg,readMsg} from '../../redux/chat.redux'
 import {getChatId} from '../../util'
-const socket = io('ws://localhost:9093')
-
+import QueueAnim from 'rc-queue-anim'
 @connect(
 	state=>state,
 	{getMsgList,sendMsg,recvMsg,readMsg}
@@ -17,6 +15,18 @@ class Chat extends React.Component{
 		this.state={text:'',msg:[],	showEmoji:false}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleEmoji = this.handleEmoji.bind(this)
+		this.onInputChange = this.onInputChange.bind(this)
+		this.onInputClick = this.onInputClick.bind(this)
+	}
+	scrollToBottom () {
+		console.log(this.messagesEnd)
+  		this.messagesEnd.scrollIntoView({ block: 'end',behavior: 'smooth' })
+	}
+	componentDidUpdate() {
+
+		if(this.messagesEnd){
+  			this.scrollToBottom()
+		}
 	}
 	componentDidMount(){
 		
@@ -24,7 +34,9 @@ class Chat extends React.Component{
 			this.props.getMsgList()
 			this.props.recvMsg()
 		}
-
+		setTimeout(()=>{if(this.messagesEnd){
+			this.scrollToBottom()
+		}},2000)
 	}
 	componentWillUnmount(){
 		const to = this.props.match.params.user
@@ -35,7 +47,13 @@ class Chat extends React.Component{
 		setTimeout(()=>{
 			window.dispatchEvent(new Event('resize'))
 		},0)
-
+		this.scrollToBottom()
+	}
+	onInputClick(){
+		this.scrollToBottom()
+	}
+	onInputChange(v){
+		this.setState({text:v})
 	}
 	handleSubmit(){
 		//socket.emit('sendmsg',{text:this.state.text})
@@ -65,41 +83,54 @@ class Chat extends React.Component{
 			return null
 		}
 		return(
-			<div id='chat-page'>
+			<div id='chat-page' 
+			 ref={(el) => { this.messagesEnd = el }}>
 				<NavBar mode='dark'
 					icon={<Icon type='left'/>}
 					onLeftClick={()=>{
 						this.props.history.goBack()
 					}}
+					className='navbar'
 				>{users[userid].name}
 				</NavBar>
-				{chatmsg.map(v=>{
-					const avatar=require(`../img/${users[v.from].avatar}.png`)
-					return v.from==userid?(
-						<List key={v._id}>
-							<Item
-								thumb={avatar}
-							>
-								{v.content}
-							</Item>
-						</List>
-						):(
-						<List key={v._id}>
-							<Item 
-								extra={<img src={avatar}/>}
-								className='chat-me'>
-								{v.content}
-							</Item>
-						</List>						
-						)
-				})}
+				<div  className="chat-area"
+					>
+					
+					<QueueAnim 
+					delay={0} duration={100} interval={50} className="queue-simple"
+					>
+					{	chatmsg.map(v=>{
+						const avatar=require(`../img/${users[v.from].avatar}.png`)
+						return v.from===userid?(
+							<List key={v._id}>
+								<Item
+									thumb={avatar}
+									wrap
+								>
+									{v.content}
+								</Item>
+							</List>
+							):(
+							<List key={v._id}>
+								<Item 
+									extra={<img alt='avatar' src={avatar}/>}
+									className='chat-me'
+									wrap
+									>{v.content}
+								</Item>
+							</List>						
+							)
+					})}
+					<Item className='chat-me-placeholder'></Item>
+					</QueueAnim>
+				</div>
+
 				<div className="stick-footer">
 					<List>
 						<InputItem
 							value={this.state.text}
-							onChange={v=>{
-								this.setState({text:v})
-							}}
+							onChange={v=>this.onInputChange(v)}
+							onClick={this.onInputClick}
 							extra={
 								<div>
 									<span

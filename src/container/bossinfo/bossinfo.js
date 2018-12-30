@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, InputItem, Button,TextareaItem } from 'antd-mobile';
+import { NavBar, InputItem, Button,TextareaItem,Icon } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css';
 import AvatarSelector from '../../component/avatarSelector/avatarSelector'
 import {connect} from 'react-redux'
@@ -31,7 +31,12 @@ class BossInfo extends React.Component{
 		return(
 			<div>
 				{redirect&&redirect!==path ? <Redirect to ={this.props.redirectTo}>}</Redirect>:null}
-				<NavBar mode="dark">Complete Infomation</NavBar>
+				<NavBar mode="dark"
+					icon={<Icon type='left'/>}
+					onLeftClick={()=>{
+						this.props.history.goBack()
+					}}
+				>Complete Infomation</NavBar>
 				<AvatarSelector
 					selectAvatar={(imgname)=>{
 						this.setState({

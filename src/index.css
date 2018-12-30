@@ -15,7 +15,7 @@
 	position:fixed;
 	top:0;
 	height: 45px;
-	
+	z-index:10;
 	width:100%;
 }
 
@@ -35,13 +35,34 @@
 	padding-right:15px;
 	text-align: right;
 }
+#chat-page .chat-me-placeholder{
+	flex-basis:auto;
+	padding-right:15px;
+	text-align: right;
+	opacity:0;
+}
+#chat-page .navbar{
+	z-index:11;
+	position:fixed;
+	top:0;
+	height: 45px;
+	width:100%;
+}
 
 .stick-footer{
 	z-index:10;
-	position:absolute;
+	position:fixed;
 	bottom:0;
 	width:100%;
 }
+.chat-area{
+	position:relative;
+	margin-top:45px;
+	width:100%;
+	overflow: auto;
+}
+
+
 
 #chat-page .am-grid-icon{
 	display: none;

@@ -27,7 +27,7 @@ class Login extends React.Component{
 	render(){
 		return(
 			<div>
-				{this.props.redirectTo&&this.props.redirectTo!='/login'? <Redirect to={this.props.redirectTo}/>:null}
+				{this.props.redirectTo&&this.props.redirectTo!=='/login'? <Redirect to={this.props.redirectTo}/>:null}
 				<Logo></Logo>
 				<h2 className='login_page'>Meet Best Candidate</h2>
 				<h2 className='login_page'>Find Best Opportunity</h2>

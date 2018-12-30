@@ -30,7 +30,7 @@ export function chat(state=initState, action){
 		case MSG_READ:
 
 			return {...state, 
-					chatmsg:state.chatmsg.map(v=>({...v, read:action.payload._from==v.from?true:v.read})),
+					chatmsg:state.chatmsg.map(v=>({...v, read:action.payload._from===v.from?true:v.read})),
 					unread:state.unread-action.payload.num}
 		default:
 			return state

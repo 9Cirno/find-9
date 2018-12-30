@@ -9,7 +9,7 @@ import Seeker from '../../component/seeker/seeker'
 import User from '../../component/user/user'
 import Msg from '../msg/msg'
 import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux'
-
+//import QueueAnim from 'rc-queue-anim'
 
 @connect(
 	state=>state,
@@ -57,7 +57,8 @@ class Dashboard extends React.Component{
 			}
 
 		]
-			return(
+			const page = navList.find(v=>v.path===pathname)
+			return navList.find((v)=>(v.path===pathname))!==undefined?(
 				<div>
 					<NavBar className='fixe-header' mode='dark'>{navList.find(v=>v.path===pathname).title}</NavBar>
 					<div style={{marginTop:45}}>
@@ -69,8 +70,19 @@ class Dashboard extends React.Component{
 					</div>
 					<NavLinkBar data={navList}></NavLinkBar>
 				</div>
-			)
+			):(<h2>Redirecting To Login Page</h2>)
 		}
 }
 
 export default Dashboard
+					// <div style={{marginTop:45}}>
+						// <Switch>
+							// {navList.map(v=>(
+								// <Route key={v.path} path={v.path} component={v.component}></Route>
+							// ))}
+						// </Switch>
+					// </div>
+
+					//					<QueueAnim>
+					//	<Route key={page.path} path={page.path} component={page.component}></Route>
+					//</QueueAnim>

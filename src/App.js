@@ -1,26 +1,45 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {addGun, removeGun,addGunAsync} from './index.redux'
-//import {Button, List} from 'antd-mobile'
-//import 'antd-mobile/dist/antd-mobile.css'
+import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom'
+import Login from './container/login/login'
+import Register from './container/register/register'
+import AuthRoute from './component/authroute/authroute'
+import BossInfo from './container/bossinfo/bossinfo'
+import SeekerInfo from './container/seekerInfo/seekerInfo'
+import Dashboard from './component/dashboard/dashboard'
+import Chat from './component/chat/chat'
 
-// const mapStatetoProp=(state)=>{
-//   return {num:state}
-// }
-// const actionCreator={addGun, removeGun,addGunAsync}
-//App = connect(mapStatetoProp,actionCreator)(App)
-@connect(
-  state=>({num:state.counter}),
-  {addGun, removeGun,addGunAsync}
-)
 class App extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+      hasError:false
+    }
+  }
+  componentDidCatch(err,info){
+    console.log('error')
+    this.setState({
+      hasError:true
+    })
+  }
   render(){
-    return(
+    return this.state.hasError?(
+        <div>
+        <h2>Page Not Found QAQ</h2>
+        <h2>We Are Going To Login</h2>
+        <Redirect to={{pathname: "/login",}} />
+        </div>
+      ):(
       <div>
-        <h1> now have {this.props.num} guns </h1>
-        <button onClick={this.props.addGun}>Request Gun</button>
-        <button onClick={this.props.removeGun}>Return Gun</button>
-        <button onClick={this.props.addGunAsync}>late Gun</button>
+        <AuthRoute></AuthRoute>
+        <Switch>
+        <Route path='/seekerinfo' component={SeekerInfo}></Route>
+        <Route path='/bossinfo' component={BossInfo}></Route>
+        <Route path='/login' component={Login}></Route>
+        <Route path='/register' component={Register}></Route>
+        <Route path='/chat/:user' component={Chat}></Route>
+        <Route component={Dashboard}></Route>
+        </Switch>
       </div>
     )
   }
