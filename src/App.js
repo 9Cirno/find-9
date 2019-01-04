@@ -8,7 +8,7 @@ import BossInfo from './container/bossinfo/bossinfo'
 import SeekerInfo from './container/seekerInfo/seekerInfo'
 import Dashboard from './component/dashboard/dashboard'
 import Chat from './component/chat/chat'
-
+import RtcFirebase from './component/rtcFirebase/rtcFirebase'
 class App extends React.Component{
   constructor(props){
     super(props)
@@ -33,6 +33,7 @@ class App extends React.Component{
       <div>
         <AuthRoute></AuthRoute>
         <Switch>
+        <Route path='/dprtc' component={RtcFirebase}></Route>
         <Route path='/seekerinfo' component={SeekerInfo}></Route>
         <Route path='/bossinfo' component={BossInfo}></Route>
         <Route path='/login' component={Login}></Route>

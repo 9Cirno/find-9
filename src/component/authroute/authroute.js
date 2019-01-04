@@ -11,7 +11,7 @@ import {connect} from 'react-redux'
 class AuthRoute extends React.Component{
 	componentDidMount(){
 		const publicList = ['/login','/register']
-		const validList = ['/chat','/boss','/bossinfo','/seeker','/seekerinfo','/me','/msg']
+		const validList = ['/chat','/boss','/bossinfo','/seeker','/seekerinfo','/me','/msg','/dprtc']
 		const pathname =this.props.location.pathname
 		const routehead = '/'+pathname.split('/')[1]
 		if (publicList.indexOf(pathname)>-1){
