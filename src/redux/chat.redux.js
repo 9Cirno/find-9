@@ -2,7 +2,7 @@ import axios from 'axios'
 import 'antd-mobile/dist/antd-mobile.css';
 import io from 'socket.io-client'
 
-const socket = io('ws://localhost:9093')
+const socket = io('wss://find-9.com')
 
 //get chat list
 const MSG_LIST = 'MSG_LIST'
